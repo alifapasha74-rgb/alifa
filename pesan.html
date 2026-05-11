@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">  
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pesan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<p class="center big-text">Pesan</p>
+
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+<nav id="menu">
+<a href="index.html">Beranda</a>
+<a href="profil.html">Profil</a>
+<a href="produk.html">Produk</a>
+<a href="pesan.html">Pesan</a>
+<a href="kontak.html">Kontak</a>
+</nav>
+
+<section>
+<p class="center big-text">🛒 Form Order</p>
+
+<form onsubmit="submitOrder(event)">
+
+Nama:<br>
+<input type="text" id="nama" required><br><br>
+
+Alamat:<br>
+<textarea id="alamat" required></textarea><br><br>
+
+No HP:<br>
+<input type="text" id="hp" required><br><br>
+
+Metode Pembayaran:<br>
+<select id="bayar">
+<option>COD</option>
+<option>Transfer</option>
+<option>E-Wallet</option>
+</select><br><br>
+
+Pesanan:<br>
+<textarea id="pesanan" required></textarea><br><br>
+
+<div class="center">
+    <button type="submit">Kirim Pesanan via WhatsApp</button>
+</div>
+
+</form>
+</section>
+
+<p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
+
+<script>
+function toggleMenu(){
+    document.getElementById("menu").classList.toggle("active");
+}
+
+function submitOrder(e){
+e.preventDefault();
+
+let nama = document.getElementById("nama").value;
+let alamat = document.getElementById("alamat").value;
+let hp = document.getElementById("hp").value;
+let bayar = document.getElementById("bayar").value;
+let pesanan = document.getElementById("pesanan").value;
+
+let message = "Halo! Saya ingin pesan susu sapi segar%0A%0A" +
+"📝 *Detail Pesanan:*%0A" + pesanan + "%0A%0A" +
+"👤 *Nama:* " + nama + "%0A" +
+"📍 *Alamat:* " + alamat + "%0A" +
+"📱 *HP:* " + hp + "%0A" +
+"💳 *Pembayaran:* " + bayar;
+
+let url = "https://wa.me/6281282481503?text=" + message;
+
+window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
