@@ -644,3 +644,80 @@ tr:hover td { background: var(--green-pale); }
     .manfaat-list { grid-template-columns: 1fr; }
     h1, .judul-produk { font-size: 19px; }
 }
+
+/* ===== LOGIN ===== */
+.login-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+}
+.login-box {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 36px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+}
+.login-box .emoji {
+    font-size: 56px;
+    margin-bottom: 8px;
+}
+.login-box h2 {
+    font-size: 22px;
+    color: #2e7d32;
+    margin-bottom: 6px;
+}
+.login-box p {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+.login-box label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 700;
+    color: #444;
+    margin-bottom: 6px;
+}
+.login-box input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 15px;
+    margin-bottom: 18px;
+    outline: none;
+    transition: border 0.2s;
+    box-sizing: border-box;
+}
+.login-box input:focus {
+    border-color: #43a047;
+}
+.login-box button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #43a047, #1b5e20);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 4px;
+}
+.login-box button:hover {
+    opacity: 0.9;
+}
+.error-msg {
+    background: #ffebee;
+    color: #c62828;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}

@@ -1,4 +1,3 @@
-
 const gambar = ["belanja.jpg","minum.jpg","tempat.jpg","ini.jpg"];
 let index = 0;
 function tampilSlide() {
@@ -17,26 +16,22 @@ document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () =
     document.getElementById("mainNav").classList.remove("open");
     document.getElementById("burgerBtn").classList.remove("open");
 }));
-function toggleNav() {
-    document.getElementById("mainNav").classList.toggle("open");
-    document.getElementById("burgerBtn").classList.toggle("open");
-}
-document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
-    document.getElementById("mainNav").classList.remove("open");
-    document.getElementById("burgerBtn").classList.remove("open");
-}));
+
 let lastAdded = null;
+let cart = [];
 
 function getCart() {
     try { return JSON.parse(localStorage.getItem("pesananCart")) || []; } catch(e) { return []; }
 }
-function saveCart(cart) { localStorage.setItem("pesananCart", JSON.stringify(cart)); }
+function saveCart(cartData) { localStorage.setItem("pesananCart", JSON.stringify(cartData)); }
 
 function updateBadge() {
     const total = getCart().reduce((s,i) => s+i.qty, 0);
     const badge = document.getElementById("cartBadge");
-    badge.textContent = total;
-    total > 0 ? badge.classList.add("show") : badge.classList.remove("show");
+    if (badge) {
+        badge.textContent = total;
+        total > 0 ? badge.classList.add("show") : badge.classList.remove("show");
+    }
 }
 
 function pesanProduk(nama, harga, img) {
@@ -53,7 +48,7 @@ function pesanProduk(nama, harga, img) {
 }
 
 function tutupPopup() { document.getElementById("popup").style.display = "none"; lastAdded = null; }
-function lihatKeranjang() { document.getElementById("popup").style.display = "none"; window.location.href = "pesan.html"; }
+function lihatKeranjang() { document.getElementById("popup").style.display = "none"; window.location.href = "pesan.php"; }
 function batalPesanan() {
     if (!lastAdded) { tutupPopup(); return; }
     const cart = getCart();
@@ -66,32 +61,20 @@ function batalPesanan() {
     tutupPopup();
 }
 
-function toggleNav() {
-    document.getElementById("mainNav").classList.toggle("open");
-    document.getElementById("burgerBtn").classList.toggle("open");
-}
-document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
-    document.getElementById("mainNav").classList.remove("open");
-    document.getElementById("burgerBtn").classList.remove("open");
-}));
-
-updateBadge();
-let cart = [];
-
 function loadCart() {
     try { cart = JSON.parse(localStorage.getItem("pesananCart")) || []; }
     catch(e) { cart = []; }
 }
-function saveCart() { localStorage.setItem("pesananCart", JSON.stringify(cart)); }
 
 function renderCart() {
     const container = document.getElementById("cartContainer");
+    if (!container) return;
     if (cart.length === 0) {
         container.innerHTML = `
             <div class="cart-empty">
                 <span class="big-emoji">🛍️</span>
                 Keranjang masih kosong.<br>
-                <a href="produk.html" style="color:var(--green);font-weight:800;">👉 Pilih produk dulu yuk!</a>
+                <a href="produk.php" style="color:var(--green);font-weight:800;">👉 Pilih produk dulu yuk!</a>
             </div>`;
         return;
     }
@@ -138,14 +121,14 @@ function renderCart() {
 function removeItem(i) {
     const row = document.getElementById("row-"+i);
     if (row) row.classList.add("removing");
-    setTimeout(() => { cart.splice(i,1); saveCart(); renderCart(); }, 340);
+    setTimeout(() => { cart.splice(i,1); saveCart(cart); renderCart(); }, 340);
 }
 function changeQty(i, delta) {
     cart[i].qty = Math.max(1, cart[i].qty + delta);
-    saveCart(); renderCart();
+    saveCart(cart); renderCart();
 }
 function clearAll() {
-    if (confirm("Hapus semua pesanan?")) { cart = []; saveCart(); renderCart(); }
+    if (confirm("Hapus semua pesanan?")) { cart = []; saveCart(cart); renderCart(); }
 }
 
 function submitOrder() {
@@ -166,25 +149,9 @@ function submitOrder() {
         "📱 *HP:* " + encodeURIComponent(hp) + "%0A" +
         "💳 *Pembayaran:* " + encodeURIComponent(bayar);
     window.open("https://wa.me/6281282481503?text=" + msg, "_blank");
-    cart = []; saveCart(); renderCart();
+    cart = []; saveCart(cart); renderCart();
 }
 
-function toggleNav() {
-    document.getElementById("mainNav").classList.toggle("open");
-    document.getElementById("burgerBtn").classList.toggle("open");
-}
-document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
-    document.getElementById("mainNav").classList.remove("open");
-    document.getElementById("burgerBtn").classList.remove("open");
-}));
-
+updateBadge();
 loadCart();
 renderCart();
-function toggleNav() {
-    document.getElementById("mainNav").classList.toggle("open");
-    document.getElementById("burgerBtn").classList.toggle("open");
-}
-document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
-    document.getElementById("mainNav").classList.remove("open");
-    document.getElementById("burgerBtn").classList.remove("open");
-}));

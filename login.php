@@ -8,3 +8,4 @@
 
     <button type="submit" name="btn_login">Masuk</button>
 </form>
+<link rel="stylesheet" href="style.css">
