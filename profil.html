@@ -1,49 +1,58 @@
 <!DOCTYPE html>
-<html lang="id">    
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-
- 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Susu Mbok Darmi</title>
+    <title>Susu Mbok Darmi — Profil</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>🐄 Susu Mbok Darmi 🐄</h1>
+<button class="burger-btn" id="burgerBtn" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+</button>
 
+<h1 class="judul-produk">🐄 Susu Mbok Darmi 🥛</h1>
 
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
-
-<nav id="menu">
-    <a href="index.html">Beranda</a> 
-    <a href="profil.html">Profil</a>
-    <a href="produk.html">Produk</a> 
+<nav id="mainNav">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html" class="active">Profil</a>
+    <a href="produk.html">Produk</a>
     <a href="pesan.html">Pesan</a>
-    <a href="contact.html">Kontak</a>
+    <a href="kontak.html">Kontak</a>
 </nav>
 
 <section>
+    <h2>Manfaat Susu Sapi Segar 🥛</h2>
+    <ul class="manfaat-list">
+        <li>Menjaga kesehatan tulang</li>
+        <li>Menambah energi</li>
+        <li>Meningkatkan konsentrasi</li>
+        <li>Baik untuk pertumbuhan</li>
+        <li>Kaya protein alami</li>
+        <li>Menjaga daya tahan tubuh</li>
+    </ul>
+</section>
 
-<p class="center big-text">Manfaat</p>
-
-<ul>
-    <li>Menjaga kesehatan tulang</li>
-    <li>Menambah energi</li>
-    <li>Meningkatkan konsentrasi</li>
-    <li>Baik untuk pertumbuhan</li>
-</ul>
+<section>
+    <h2>Tentang Kami 🌿</h2>
+    <p>Susu Mbok Darmi adalah usaha susu sapi segar yang berdiri sejak 2010. Kami berkomitmen menghadirkan susu berkualitas tinggi, murni, sehat, dan menyegarkan untuk seluruh keluarga Indonesia.</p>
+    <br>
+    <p>📍 Tang City Mall, Tangerang, Lt.1, Blok A1</p>
+    <p>⏰ Buka setiap hari: 09.00 – 19.00 WIB</p>
+</section>
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
-</section>
-
 <script>
-function toggleMenu(){
-    document.getElementById("menu").classList.toggle("active");
+function toggleNav() {
+    document.getElementById("mainNav").classList.toggle("open");
+    document.getElementById("burgerBtn").classList.toggle("open");
 }
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
+    document.getElementById("mainNav").classList.remove("open");
+    document.getElementById("burgerBtn").classList.remove("open");
+}));
 </script>
-
 </body>
 </html>

@@ -1,45 +1,91 @@
 <!DOCTYPE html>
-<html lang="id">    
-<head> 
+<html lang="id">
+<head>
     <meta charset="UTF-8">
-
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Susu Mbok Darmi</title>
-
+    <title>Susu Mbok Darmi — Beranda</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>🐄 Susu Mbok Darmi 🐄</h1>
+<button class="burger-btn" id="burgerBtn" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+</button>
 
+<div class="hero-milk">
+    <div class="milk-drops">
+        <div class="drop"></div><div class="drop"></div><div class="drop"></div>
+        <div class="drop"></div><div class="drop"></div><div class="drop"></div>
+        <div class="drop"></div><div class="drop"></div><div class="drop"></div>
+        <div class="drop"></div>
+    </div>
+    <div class="splash-blob left"></div>
+    <div class="splash-blob right"></div>
+    <div class="milk-glass-wrap">
+        <span class="milk-glass-emoji">🥛</span>
+    </div>
+    <h1>🐄 Susu Mbok Darmi</h1>
+    <p class="tagline">Segar • Murni • Menyehatkan</p>
+    <svg class="milk-wave" viewBox="0 0 1200 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,28 C200,56 400,0 600,28 C800,56 1000,0 1200,28 L1200,56 L0,56 Z" fill="#F1F8E9"/>
+    </svg>
+</div>
 
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
-
-<nav id="menu">
-    <a href="index.html">Beranda</a> 
+<nav id="mainNav">
+    <a href="index.html" class="active">Beranda</a>
     <a href="profil.html">Profil</a>
-    <a href="produk.html">Produk</a> 
+    <a href="produk.html">Produk</a>
     <a href="pesan.html">Pesan</a>
-    <a href="contact.html">Kontak</a>
+    <a href="kontak.html">Kontak</a>
 </nav>
 
 <section>
-
-<p class="center big-text">Selamat Datang Di Susu Mbok Darmi</p>
-
-<img src="susumbokdarmi.jpg" width="800">
+    <h2>Selamat Datang di Susu Mbok Darmi 🌿</h2>
+    <img src="susumbokdarmi.jpg" alt="Logo" class="logo">
+    <p>Susu sapi segar, murni, dan menyehatkan langsung dari ladang menuju ke meja makan kamu!</p>
+    <br>
+    <div class="carousel">
+        <img id="slide" src="belanja.jpg" alt="Foto">
+        <div class="carousel-control">
+            <button onclick="prevSlide()">❮</button>
+            <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <button onclick="nextSlide()">❯</button>
+        </div>
+    </div>
+    <br>
+    <div style="text-align:center;">
+        <a href="produk.html">
+            <button style="width:auto; padding:14px 36px; font-size:16px;">🛒 Lihat Produk Kami</button>
+        </a>
+    </div>
+</section>
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
-</section>
-
 <script>
-function toggleMenu(){
-    document.getElementById("menu").classList.toggle("active");
+const gambar = ["belanja.jpg","minum.jpg","tempat.jpg","ini.jpg"];
+let index = 0;
+function tampilSlide() {
+    document.getElementById("slide").src = gambar[index];
+    document.querySelectorAll(".dot").forEach((d,i) => d.classList.toggle("active", i===index));
 }
-</script>
+function nextSlide() { index = (index+1) % gambar.length; tampilSlide(); }
+function prevSlide() { index = (index-1+gambar.length) % gambar.length; tampilSlide(); }
+setInterval(nextSlide, 3000);
 
+function toggleNav() {
+    document.getElementById("mainNav").classList.toggle("open");
+    document.getElementById("burgerBtn").classList.toggle("open");
+}
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
+    document.getElementById("mainNav").classList.remove("open");
+    document.getElementById("burgerBtn").classList.remove("open");
+}));
+</script>
 </body>
 </html>

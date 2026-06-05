@@ -1,86 +1,163 @@
 <!DOCTYPE html>
-<html lang="id">  
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Pesan</title>
+    <title>Susu Mbok Darmi — Pesan</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<p class="center big-text">Pesan</p>
+<button class="burger-btn" id="burgerBtn" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+</button>
 
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
+<h1 class="judul-produk">🛒 Pesan Susu 🐄</h1>
 
-<nav id="menu">
-<a href="index.html">Beranda</a>
-<a href="profil.html">Profil</a>
-<a href="produk.html">Produk</a>
-<a href="pesan.html">Pesan</a>
-<a href="kontak.html">Kontak</a>
+<nav id="mainNav">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="produk.html">Produk</a>
+    <a href="pesan.html" class="active">Pesan</a>
+    <a href="kontak.html">Kontak</a>
 </nav>
 
 <section>
-<p class="center big-text">🛒 Form Order</p>
+    <h2>🛒 Keranjang Pesanan</h2>
+    <div id="cartContainer"></div>
+    <div style="text-align:right;">
+        <button class="clear-btn" onclick="clearAll()">🗑️ Hapus Semua</button>
+    </div>
+</section>
 
-<form onsubmit="submitOrder(event)">
+<section>
+    <h2>Form Order 📋</h2>
+    <label>👤 Nama Lengkap</label>
+    <input type="text" id="nama" placeholder="Contoh: Budi Santoso">
 
-Nama:<br>
-<input type="text" id="nama" required><br><br>
+    <label>📍 Alamat Pengiriman</label>
+    <textarea id="alamat" rows="3" placeholder="Tuliskan alamat lengkap kamu..."></textarea>
 
-Alamat:<br>
-<textarea id="alamat" required></textarea><br><br>
+    <label>📱 Nomor HP / WhatsApp</label>
+    <input type="text" id="hp" placeholder="Contoh: 08123456789">
 
-No HP:<br>
-<input type="text" id="hp" required><br><br>
+    <label>💳 Metode Pembayaran</label>
+    <select id="bayar">
+        <option>COD (Bayar di Tempat)</option>
+        <option>Transfer Bank</option>
+        <option>E-Wallet (OVO / GoPay / Dana)</option>
+    </select>
 
-Metode Pembayaran:<br>
-<select id="bayar">
-<option>COD</option>
-<option>Transfer</option>
-<option>E-Wallet</option>
-</select><br><br>
-
-Pesanan:<br>
-<textarea id="pesanan" required></textarea><br><br>
-
-<div class="center">
-    <button type="submit">Kirim Pesanan via WhatsApp</button>
-</div>
-
-</form>
+    <button onclick="submitOrder()" style="font-size:16px; padding:15px;">💬 Kirim Pesanan via WhatsApp</button>
 </section>
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
 <script>
-function toggleMenu(){
-    document.getElementById("menu").classList.toggle("active");
+let cart = [];
+
+function loadCart() {
+    try { cart = JSON.parse(localStorage.getItem("pesananCart")) || []; }
+    catch(e) { cart = []; }
+}
+function saveCart() { localStorage.setItem("pesananCart", JSON.stringify(cart)); }
+
+function renderCart() {
+    const container = document.getElementById("cartContainer");
+    if (cart.length === 0) {
+        container.innerHTML = `
+            <div class="cart-empty">
+                <span class="big-emoji">🛍️</span>
+                Keranjang masih kosong.<br>
+                <a href="produk.html" style="color:var(--green);font-weight:800;">👉 Pilih produk dulu yuk!</a>
+            </div>`;
+        return;
+    }
+    let total = 0;
+    let rows = cart.map((item, i) => {
+        const sub = item.harga * item.qty;
+        total += sub;
+        const imgTag = item.img
+            ? `<img src="${item.img}" class="prod-img" alt="${item.nama}">`
+            : `<div style="width:62px;height:62px;background:var(--green-pale);border-radius:12px;margin:auto;display:flex;align-items:center;justify-content:center;font-size:28px;">🥛</div>`;
+        return `
+        <tr id="row-${i}">
+            <td>${imgTag}</td>
+            <td class="prod-name">${item.nama}</td>
+            <td>
+                <div class="qty-cell">
+                    <button onclick="changeQty(${i},-1)">−</button>
+                    <span>${item.qty}</span>
+                    <button onclick="changeQty(${i},1)">+</button>
+                </div>
+            </td>
+            <td class="prod-price">Rp ${sub.toLocaleString('id-ID')}</td>
+            <td><button class="delete-btn" onclick="removeItem(${i})">🗑️</button></td>
+        </tr>`;
+    }).join('');
+
+    container.innerHTML = `
+        <div class="cart-table-wrap">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Foto</th><th>Produk</th><th>Jumlah</th><th>Subtotal</th><th>Hapus</th>
+                    </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+            </table>
+        </div>
+        <div class="cart-total">
+            <span class="label">💰 Total Pesanan</span>
+            <span class="amount">Rp ${total.toLocaleString('id-ID')}</span>
+        </div>`;
 }
 
-function submitOrder(e){
-e.preventDefault();
-
-let nama = document.getElementById("nama").value;
-let alamat = document.getElementById("alamat").value;
-let hp = document.getElementById("hp").value;
-let bayar = document.getElementById("bayar").value;
-let pesanan = document.getElementById("pesanan").value;
-
-let message = "Halo! Saya ingin pesan susu sapi segar%0A%0A" +
-"📝 *Detail Pesanan:*%0A" + pesanan + "%0A%0A" +
-"👤 *Nama:* " + nama + "%0A" +
-"📍 *Alamat:* " + alamat + "%0A" +
-"📱 *HP:* " + hp + "%0A" +
-"💳 *Pembayaran:* " + bayar;
-
-let url = "https://wa.me/6281282481503?text=" + message;
-
-window.open(url, "_blank");
+function removeItem(i) {
+    const row = document.getElementById("row-"+i);
+    if (row) row.classList.add("removing");
+    setTimeout(() => { cart.splice(i,1); saveCart(); renderCart(); }, 340);
 }
+function changeQty(i, delta) {
+    cart[i].qty = Math.max(1, cart[i].qty + delta);
+    saveCart(); renderCart();
+}
+function clearAll() {
+    if (confirm("Hapus semua pesanan?")) { cart = []; saveCart(); renderCart(); }
+}
+
+function submitOrder() {
+    const nama   = document.getElementById("nama").value.trim();
+    const alamat = document.getElementById("alamat").value.trim();
+    const hp     = document.getElementById("hp").value.trim();
+    const bayar  = document.getElementById("bayar").value;
+    if (!nama || !alamat || !hp) { alert("Mohon lengkapi nama, alamat, dan nomor HP dulu ya! 😊"); return; }
+    if (cart.length === 0) { alert("Keranjang masih kosong, pilih produk dulu! 🛒"); return; }
+    let detail = cart.map(i => `${i.qty}x ${i.nama} = Rp ${(i.harga*i.qty).toLocaleString('id-ID')}`).join('%0A');
+    const total = cart.reduce((s,i) => s + i.harga*i.qty, 0);
+    detail += `%0A%0A💰 *Total: Rp ${total.toLocaleString('id-ID')}*`;
+    const msg =
+        "Halo! Saya ingin memesan susu sapi segar 🥛%0A%0A" +
+        "📝 *Detail Pesanan:*%0A" + detail + "%0A%0A" +
+        "👤 *Nama:* " + encodeURIComponent(nama) + "%0A" +
+        "📍 *Alamat:* " + encodeURIComponent(alamat) + "%0A" +
+        "📱 *HP:* " + encodeURIComponent(hp) + "%0A" +
+        "💳 *Pembayaran:* " + encodeURIComponent(bayar);
+    window.open("https://wa.me/6281282481503?text=" + msg, "_blank");
+    cart = []; saveCart(); renderCart();
+}
+
+function toggleNav() {
+    document.getElementById("mainNav").classList.toggle("open");
+    document.getElementById("burgerBtn").classList.toggle("open");
+}
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
+    document.getElementById("mainNav").classList.remove("open");
+    document.getElementById("burgerBtn").classList.remove("open");
+}));
+
+loadCart();
+renderCart();
 </script>
-
 </body>
 </html>

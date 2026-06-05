@@ -1,46 +1,67 @@
 <!DOCTYPE html>
-<html lang="id"> 
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Kontak</title>
+    <title>Susu Mbok Darmi — Kontak</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<p class="center big-text">Kontak kami</p>
+<button class="burger-btn" id="burgerBtn" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+</button>
 
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
+<h1 class="judul-produk">📞 Kontak Kami 🐄</h1>
 
-<nav id="menu">
+<nav id="mainNav">
     <a href="index.html">Beranda</a>
     <a href="profil.html">Profil</a>
     <a href="produk.html">Produk</a>
     <a href="pesan.html">Pesan</a>
-    <a href="kontak.html">Kontak</a>
+    <a href="kontak.html" class="active">Kontak</a>
 </nav>
 
 <section>
-
-<p>📱 WhatsApp: 0812-8248-1503</p>
-<p>📍 Alamat: Tang City Mall, Tangerang, Lt.1, Blok A1</p>
-<p>⏰ Jam: 09:00 - 19:00</p>
-
-<a href="https://maps.app.goo.gl/zmbsjXV1nhqBnjzr8" target="_blank">
-<button>Lihat Google Maps</button>
-</a>
-
+    <h2>Hubungi Kami 💬</h2>
+    <div class="kontak-list">
+        <div class="kontak-item">
+            <span class="icon">📱</span>
+            <span>WhatsApp: <b style="display:inline;">0812-8248-1503</b></span>
+        </div>
+        <div class="kontak-item">
+            <span class="icon">📍</span>
+            <span>Tang City Mall, Tangerang, Lt.1, Blok A1</span>
+        </div>
+        <div class="kontak-item">
+            <span class="icon">⏰</span>
+            <span>Senin – Minggu: 09.00 – 19.00 WIB</span>
+        </div>
+        <div class="kontak-item">
+            <span class="icon">🚗</span>
+            <span>Gratis ongkir area Tangerang (min. order 2 botol)</span>
+        </div>
+    </div>
+    <br>
+    <a href="https://maps.app.goo.gl/zmbsjXV1nhqBnjzr8" target="_blank">
+        <button style="font-size:15px; padding:14px;">🗺️ Lihat di Google Maps</button>
+    </a>
+    <a href="https://wa.me/6281282481503" target="_blank">
+        <button style="font-size:15px; padding:14px; background:linear-gradient(135deg,#25D366,#128C7E);">💬 Chat WhatsApp Sekarang</button>
+    </a>
 </section>
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
 <script>
-function toggleMenu(){
-    document.getElementById("menu").classList.toggle("active");
+function toggleNav() {
+    document.getElementById("mainNav").classList.toggle("open");
+    document.getElementById("burgerBtn").classList.toggle("open");
 }
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
+    document.getElementById("mainNav").classList.remove("open");
+    document.getElementById("burgerBtn").classList.remove("open");
+}));
 </script>
-
 </body>
 </html>

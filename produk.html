@@ -1,86 +1,140 @@
 <!DOCTYPE html>
-<html lang="id">  
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-
-   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Produk</title>
+    <title>Susu Mbok Darmi — Produk</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<p class="center big-text">Produk Kami</p>
+<button class="burger-btn" id="burgerBtn" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+</button>
 
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
+<h1 class="judul-produk">🥛 Produk Kami 🐄</h1>
 
-<nav id="menu">
-<a href="index.html">Beranda</a>
-<a href="profil.html">Profil</a>
-<a href="produk.html">Produk</a>
-<a href="pesan.html">Cara Pesan</a>
-<a href="kontak.html">Kontak</a>
+<nav id="mainNav">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="produk.html" class="active">Produk</a>
+    <a href="pesan.html">
+        <span class="cart-badge-wrap">Pesan <span id="cartBadge"></span></span>
+    </a>
+    <a href="kontak.html">Kontak</a>
 </nav>
 
 <section>
-<p class="center big-text">Daftar Produk</p>
-
-<ul>
-
-<li>
-<a href="pesan.html">
-<img src="coklat.jpg" style="max-width:100%;"><br>
-Susu Coklat - Rp 15.000
-</a>
-</li>
-
-<li>
-<a href="pesan.html">
-<img src="strawbery.jpg" style="max-width:100%;"><br>
-Susu Strawberry - Rp 15.000
-</a>
-</li>
-
-<li>
-<a href="pesan.html">
-<img src="vanilla.jpg" style="max-width:100%;"><br>
-Susu Vanilla - Rp 15.000
-</a>
-</li>
-
-<li>
-<a href="pesan.html"> 
-<img src="almond.jpg" style="max-width:100%;"><br>
-Susu Almond - Rp 15.000
-</a>
-</li>
-
-<li>
-<a href="pesan.html">
-<img src="mangga.jpg" style="max-width:100%;"><br>
-Susu Mangga Toping Oreo - Rp 20.000
-</a>
-</li>
-
-<li>
-<a href="pesan.html">
-<img src="kurma.jpg" style="max-width:100%;"><br>
-Susu Kurma Promo - Rp 12.000
-</a>
-</li>
-
-</ul>
-
+    <h2>Daftar Produk 🛒</h2>
+    <ul class="produk-grid">
+        <li>
+            <img src="coklat.jpg" alt="Susu Coklat">
+            <b>Susu Coklat</b>
+            <p>Rp 15.000</p>
+            <button onclick="pesanProduk('Susu Coklat',15000,'coklat.jpg')">🛒 Tambah ke Keranjang</button>
+        </li>
+        <li>
+            <img src="strawbery.jpg" alt="Susu Strawberry">
+            <b>Susu Strawberry</b>
+            <p>Rp 15.000</p>
+            <button onclick="pesanProduk('Susu Strawberry',15000,'strawbery.jpg')">🛒 Tambah ke Keranjang</button>
+        </li>
+        <li>
+            <img src="vanilla.jpg" alt="Susu Vanilla">
+            <b>Susu Vanilla</b>
+            <p>Rp 15.000</p>
+            <button onclick="pesanProduk('Susu Vanilla',15000,'vanilla.jpg')">🛒 Tambah ke Keranjang</button>
+        </li>
+        <li>
+            <img src="almond.jpg" alt="Susu Almond">
+            <b>Susu Almond</b>
+            <p>Rp 15.000</p>
+            <button onclick="pesanProduk('Susu Almond',15000,'almond.jpg')">🛒 Tambah ke Keranjang</button>
+        </li>
+        <li>
+            <img src="mangga.jpg" alt="Susu Mangga Topping Oreo">
+            <b>Susu Mangga Topping Oreo</b>
+            <p>Rp 20.000</p>
+            <button onclick="pesanProduk('Susu Mangga Topping Oreo',20000,'mangga.jpg')">🛒 Tambah ke Keranjang</button>
+        </li>
+        <li>
+            <img src="kurma.jpg" alt="Susu Kurma Promo">
+            <b>Susu Kurma Promo 🔥</b>
+            <p>Rp 12.000</p>
+            <button onclick="pesanProduk('Susu Kurma Promo',12000,'kurma.jpg')">🛒 Tambah ke Keranjang</button>
+        </li>
+    </ul>
 </section>
+
+<div id="popup" class="modal">
+    <div class="modal-content">
+        <div style="font-size:48px; margin-bottom:10px;">🐄</div>
+        <h2 style="font-size:20px; margin-bottom:8px;">Ditambahkan ke Keranjang!</h2>
+        <p id="popupText"></p>
+        <div class="popup-btn">
+            <button onclick="tutupPopup()">✅ Lanjut Belanja</button>
+            <button onclick="lihatKeranjang()" style="background:linear-gradient(135deg,#43A047,#1B5E20);">🛒 Lihat Keranjang</button>
+        </div>
+        <div style="margin-top:10px;">
+            <button onclick="batalPesanan()" style="background:linear-gradient(135deg,#ef5350,#c62828);font-size:13px;padding:9px 18px;width:auto;">❌ Batal</button>
+        </div>
+    </div>
+</div>
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
 <script>
-function toggleMenu(){
-    document.getElementById("menu").classList.toggle("active");
-}
-</script>
+let lastAdded = null;
 
+function getCart() {
+    try { return JSON.parse(localStorage.getItem("pesananCart")) || []; } catch(e) { return []; }
+}
+function saveCart(cart) { localStorage.setItem("pesananCart", JSON.stringify(cart)); }
+
+function updateBadge() {
+    const total = getCart().reduce((s,i) => s+i.qty, 0);
+    const badge = document.getElementById("cartBadge");
+    badge.textContent = total;
+    total > 0 ? badge.classList.add("show") : badge.classList.remove("show");
+}
+
+function pesanProduk(nama, harga, img) {
+    const cart = getCart();
+    const existing = cart.find(i => i.nama === nama);
+    if (existing) existing.qty += 1;
+    else cart.push({ nama, harga, img, qty: 1 });
+    saveCart(cart);
+    updateBadge();
+    lastAdded = { nama, harga };
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popupText").innerHTML =
+        "✅ <b>" + nama + "</b> ditambahkan!<br>Harga: <b>Rp " + harga.toLocaleString('id-ID') + "</b>";
+}
+
+function tutupPopup() { document.getElementById("popup").style.display = "none"; lastAdded = null; }
+function lihatKeranjang() { document.getElementById("popup").style.display = "none"; window.location.href = "pesan.html"; }
+function batalPesanan() {
+    if (!lastAdded) { tutupPopup(); return; }
+    const cart = getCart();
+    const idx = cart.findIndex(i => i.nama === lastAdded.nama);
+    if (idx !== -1) {
+        cart[idx].qty -= 1;
+        if (cart[idx].qty <= 0) cart.splice(idx, 1);
+        saveCart(cart); updateBadge();
+    }
+    tutupPopup();
+}
+
+function toggleNav() {
+    document.getElementById("mainNav").classList.toggle("open");
+    document.getElementById("burgerBtn").classList.toggle("open");
+}
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
+    document.getElementById("mainNav").classList.remove("open");
+    document.getElementById("burgerBtn").classList.remove("open");
+}));
+
+updateBadge();
+</script>
 </body>
 </html>
