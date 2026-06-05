@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Susu Mbok Darmi — Beranda</title>
+    <title>Susu Mbok Darmi 2 — Beranda</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
@@ -32,11 +33,11 @@
 </div>
 
 <nav id="mainNav">
-    <a href="index.html" class="active">Beranda</a>
-    <a href="profil.html">Profil</a>
-    <a href="produk.html">Produk</a>
-    <a href="pesan.html">Pesan</a>
-    <a href="kontak.html">Kontak</a>
+    <a href="index.php" class="active">Beranda</a>
+    <a href="profil.php">Profil</a>
+    <a href="produk.php">Produk</a>
+    <a href="pesan.php">Pesan</a>
+    <a href="kontak.php">Kontak</a>
 </nav>
 
 <section>
@@ -59,7 +60,7 @@
     </div>
     <br>
     <div style="text-align:center;">
-        <a href="produk.html">
+        <a href="produk.php">
             <button style="width:auto; padding:14px 36px; font-size:16px;">🛒 Lihat Produk Kami</button>
         </a>
     </div>
@@ -67,25 +68,8 @@
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
-<script>
-const gambar = ["belanja.jpg","minum.jpg","tempat.jpg","ini.jpg"];
-let index = 0;
-function tampilSlide() {
-    document.getElementById("slide").src = gambar[index];
-    document.querySelectorAll(".dot").forEach((d,i) => d.classList.toggle("active", i===index));
-}
-function nextSlide() { index = (index+1) % gambar.length; tampilSlide(); }
-function prevSlide() { index = (index-1+gambar.length) % gambar.length; tampilSlide(); }
-setInterval(nextSlide, 3000);
+<script src="main.js">
 
-function toggleNav() {
-    document.getElementById("mainNav").classList.toggle("open");
-    document.getElementById("burgerBtn").classList.toggle("open");
-}
-document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
-    document.getElementById("mainNav").classList.remove("open");
-    document.getElementById("burgerBtn").classList.remove("open");
-}));
 </script>
 </body>
 </html>

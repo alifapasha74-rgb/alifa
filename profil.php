@@ -15,11 +15,11 @@
 <h1 class="judul-produk">🐄 Susu Mbok Darmi 🥛</h1>
 
 <nav id="mainNav">
-    <a href="index.html">Beranda</a>
-    <a href="profil.html" class="active">Profil</a>
-    <a href="produk.html">Produk</a>
-    <a href="pesan.html">Pesan</a>
-    <a href="kontak.html">Kontak</a>
+    <a href="index.php">Beranda</a>
+    <a href="profil.php" class="active">Profil</a>
+    <a href="produk.php">Produk</a>
+    <a href="pesan.php">Pesan</a>
+    <a href="kontak.php">Kontak</a>
 </nav>
 
 <section>
@@ -44,15 +44,8 @@
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
-<script>
-function toggleNav() {
-    document.getElementById("mainNav").classList.toggle("open");
-    document.getElementById("burgerBtn").classList.toggle("open");
-}
-document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
-    document.getElementById("mainNav").classList.remove("open");
-    document.getElementById("burgerBtn").classList.remove("open");
-}));
+<script src="main.js">
+
 </script>
 </body>
 </html>

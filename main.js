@@ -1,59 +1,81 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Susu Mbok Darmi — Pesan</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-<button class="burger-btn" id="burgerBtn" onclick="toggleNav()">
-    <span></span><span></span><span></span>
-</button>
+const gambar = ["belanja.jpg","minum.jpg","tempat.jpg","ini.jpg"];
+let index = 0;
+function tampilSlide() {
+    document.getElementById("slide").src = gambar[index];
+    document.querySelectorAll(".dot").forEach((d,i) => d.classList.toggle("active", i===index));
+}
+function nextSlide() { index = (index+1) % gambar.length; tampilSlide(); }
+function prevSlide() { index = (index-1+gambar.length) % gambar.length; tampilSlide(); }
+setInterval(nextSlide, 3000);
 
-<h1 class="judul-produk">🛒 Pesan Susu 🐄</h1>
+function toggleNav() {
+    document.getElementById("mainNav").classList.toggle("open");
+    document.getElementById("burgerBtn").classList.toggle("open");
+}
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
+    document.getElementById("mainNav").classList.remove("open");
+    document.getElementById("burgerBtn").classList.remove("open");
+}));
+function toggleNav() {
+    document.getElementById("mainNav").classList.toggle("open");
+    document.getElementById("burgerBtn").classList.toggle("open");
+}
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
+    document.getElementById("mainNav").classList.remove("open");
+    document.getElementById("burgerBtn").classList.remove("open");
+}));
+let lastAdded = null;
 
-<nav id="mainNav">
-    <a href="index.html">Beranda</a>
-    <a href="profil.html">Profil</a>
-    <a href="produk.html">Produk</a>
-    <a href="pesan.html" class="active">Pesan</a>
-    <a href="kontak.html">Kontak</a>
-</nav>
+function getCart() {
+    try { return JSON.parse(localStorage.getItem("pesananCart")) || []; } catch(e) { return []; }
+}
+function saveCart(cart) { localStorage.setItem("pesananCart", JSON.stringify(cart)); }
 
-<section>
-    <h2>🛒 Keranjang Pesanan</h2>
-    <div id="cartContainer"></div>
-    <div style="text-align:right;">
-        <button class="clear-btn" onclick="clearAll()">🗑️ Hapus Semua</button>
-    </div>
-</section>
+function updateBadge() {
+    const total = getCart().reduce((s,i) => s+i.qty, 0);
+    const badge = document.getElementById("cartBadge");
+    badge.textContent = total;
+    total > 0 ? badge.classList.add("show") : badge.classList.remove("show");
+}
 
-<section>
-    <h2>Form Order 📋</h2>
-    <label>👤 Nama Lengkap</label>
-    <input type="text" id="nama" placeholder="Contoh: Budi Santoso">
+function pesanProduk(nama, harga, img) {
+    const cart = getCart();
+    const existing = cart.find(i => i.nama === nama);
+    if (existing) existing.qty += 1;
+    else cart.push({ nama, harga, img, qty: 1 });
+    saveCart(cart);
+    updateBadge();
+    lastAdded = { nama, harga };
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popupText").innerHTML =
+        "✅ <b>" + nama + "</b> ditambahkan!<br>Harga: <b>Rp " + harga.toLocaleString('id-ID') + "</b>";
+}
 
-    <label>📍 Alamat Pengiriman</label>
-    <textarea id="alamat" rows="3" placeholder="Tuliskan alamat lengkap kamu..."></textarea>
+function tutupPopup() { document.getElementById("popup").style.display = "none"; lastAdded = null; }
+function lihatKeranjang() { document.getElementById("popup").style.display = "none"; window.location.href = "pesan.html"; }
+function batalPesanan() {
+    if (!lastAdded) { tutupPopup(); return; }
+    const cart = getCart();
+    const idx = cart.findIndex(i => i.nama === lastAdded.nama);
+    if (idx !== -1) {
+        cart[idx].qty -= 1;
+        if (cart[idx].qty <= 0) cart.splice(idx, 1);
+        saveCart(cart); updateBadge();
+    }
+    tutupPopup();
+}
 
-    <label>📱 Nomor HP / WhatsApp</label>
-    <input type="text" id="hp" placeholder="Contoh: 08123456789">
+function toggleNav() {
+    document.getElementById("mainNav").classList.toggle("open");
+    document.getElementById("burgerBtn").classList.toggle("open");
+}
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
+    document.getElementById("mainNav").classList.remove("open");
+    document.getElementById("burgerBtn").classList.remove("open");
+}));
 
-    <label>💳 Metode Pembayaran</label>
-    <select id="bayar">
-        <option>COD (Bayar di Tempat)</option>
-        <option>Transfer Bank</option>
-        <option>E-Wallet (OVO / GoPay / Dana)</option>
-    </select>
-
-    <button onclick="submitOrder()" style="font-size:16px; padding:15px;">💬 Kirim Pesanan via WhatsApp</button>
-</section>
-
-<p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
-
-<script>
+updateBadge();
 let cart = [];
 
 function loadCart() {
@@ -158,6 +180,11 @@ document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () =
 
 loadCart();
 renderCart();
-</script>
-</body>
-</html>
+function toggleNav() {
+    document.getElementById("mainNav").classList.toggle("open");
+    document.getElementById("burgerBtn").classList.toggle("open");
+}
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
+    document.getElementById("mainNav").classList.remove("open");
+    document.getElementById("burgerBtn").classList.remove("open");
+}));

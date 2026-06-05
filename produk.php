@@ -15,13 +15,13 @@
 <h1 class="judul-produk">🥛 Produk Kami 🐄</h1>
 
 <nav id="mainNav">
-    <a href="index.html">Beranda</a>
-    <a href="profil.html">Profil</a>
-    <a href="produk.html" class="active">Produk</a>
-    <a href="pesan.html">
+    <a href="index.php">Beranda</a>
+    <a href="profil.php">Profil</a>
+    <a href="produk.php" class="active">Produk</a>
+    <a href="pesan.php">
         <span class="cart-badge-wrap">Pesan <span id="cartBadge"></span></span>
     </a>
-    <a href="kontak.html">Kontak</a>
+    <a href="kontak.php">Kontak</a>
 </nav>
 
 <section>
@@ -83,58 +83,8 @@
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
-<script>
-let lastAdded = null;
+<script src="main.js">
 
-function getCart() {
-    try { return JSON.parse(localStorage.getItem("pesananCart")) || []; } catch(e) { return []; }
-}
-function saveCart(cart) { localStorage.setItem("pesananCart", JSON.stringify(cart)); }
-
-function updateBadge() {
-    const total = getCart().reduce((s,i) => s+i.qty, 0);
-    const badge = document.getElementById("cartBadge");
-    badge.textContent = total;
-    total > 0 ? badge.classList.add("show") : badge.classList.remove("show");
-}
-
-function pesanProduk(nama, harga, img) {
-    const cart = getCart();
-    const existing = cart.find(i => i.nama === nama);
-    if (existing) existing.qty += 1;
-    else cart.push({ nama, harga, img, qty: 1 });
-    saveCart(cart);
-    updateBadge();
-    lastAdded = { nama, harga };
-    document.getElementById("popup").style.display = "flex";
-    document.getElementById("popupText").innerHTML =
-        "✅ <b>" + nama + "</b> ditambahkan!<br>Harga: <b>Rp " + harga.toLocaleString('id-ID') + "</b>";
-}
-
-function tutupPopup() { document.getElementById("popup").style.display = "none"; lastAdded = null; }
-function lihatKeranjang() { document.getElementById("popup").style.display = "none"; window.location.href = "pesan.html"; }
-function batalPesanan() {
-    if (!lastAdded) { tutupPopup(); return; }
-    const cart = getCart();
-    const idx = cart.findIndex(i => i.nama === lastAdded.nama);
-    if (idx !== -1) {
-        cart[idx].qty -= 1;
-        if (cart[idx].qty <= 0) cart.splice(idx, 1);
-        saveCart(cart); updateBadge();
-    }
-    tutupPopup();
-}
-
-function toggleNav() {
-    document.getElementById("mainNav").classList.toggle("open");
-    document.getElementById("burgerBtn").classList.toggle("open");
-}
-document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", () => {
-    document.getElementById("mainNav").classList.remove("open");
-    document.getElementById("burgerBtn").classList.remove("open");
-}));
-
-updateBadge();
 </script>
 </body>
 </html>
