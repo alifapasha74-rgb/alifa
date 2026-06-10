@@ -22,6 +22,7 @@
         <span class="cart-badge-wrap">Pesan <span id="cartBadge"></span></span>
     </a>
     <a href="kontak.php">Kontak</a>
+     <a href="logout.php">logout</a>
 </nav>
 
 <section>
