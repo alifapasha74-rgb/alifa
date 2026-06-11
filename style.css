@@ -21,7 +21,7 @@
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html, body { width:100%; overflow-x:hidden; }
+html, body { width:100%; overflow-x:hidden; height:100%; min-height:100vh; }
 
 body {
     font-family: 'Nunito', sans-serif;
@@ -337,7 +337,6 @@ input:focus, textarea:focus, select:focus {
             to   { opacity:1; transform:translateY(0) scale(1); }
         }
 
-        
         .burger-btn {
             display: none;
             position: fixed;
@@ -390,48 +389,6 @@ input:focus, textarea:focus, select:focus {
             }
             nav a { text-align: center; padding: 12px 16px; }
         }
-         .burger-btn {
-            display: none;
-            position: fixed;
-            top: 16px; right: 16px;
-            z-index: 1000;
-            width: 48px; height: 48px;
-            background: linear-gradient(135deg, #43A047, #1B5E20);
-            border: none; border-radius: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 18px rgba(67,160,71,.45);
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            padding: 0; margin: 0;
-        }
-        .burger-btn span {
-            display: block;
-            width: 22px; height: 2.5px;
-            background: #fff; border-radius: 4px;
-            transition: all .35s cubic-bezier(.34,1.56,.64,1);
-            transform-origin: center;
-        }
-        .burger-btn.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
-        .burger-btn.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
-        .burger-btn.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-        nav.open { display: flex !important; animation: slideDown .35s cubic-bezier(.34,1.56,.64,1); }
-        @keyframes slideDown {
-            from { opacity:0; transform:translateY(-14px) scale(.97); }
-            to   { opacity:1; transform:translateY(0) scale(1); }
-        }
-        @media (max-width: 600px) {
-            .burger-btn { display: flex; }
-            nav {
-                display: none; flex-direction: column; align-items: stretch;
-                position: fixed; top: 70px; right: 12px;
-                width: calc(100% - 24px); max-width: 320px;
-                z-index: 999; border-radius: 20px; padding: 12px;
-                box-shadow: 0 10px 40px rgba(0,0,0,.18);
-            }
-            nav a { text-align: center; padding: 12px 16px; }
-        }
         .cart-badge-wrap { position: relative; display: inline-block; }
         #cartBadge {
             position: absolute; top: -6px; right: -8px;
@@ -443,48 +400,6 @@ input:focus, textarea:focus, select:focus {
             box-shadow: 0 2px 8px rgba(0,0,0,.2);
         }
         #cartBadge.show { display: flex; }
-            .burger-btn {
-            display: none;
-            position: fixed;
-            top: 16px; right: 16px;
-            z-index: 1000;
-            width: 48px; height: 48px;
-            background: linear-gradient(135deg, #43A047, #1B5E20);
-            border: none; border-radius: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 18px rgba(67,160,71,.45);
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            padding: 0; margin: 0;
-        }
-        .burger-btn span {
-            display: block;
-            width: 22px; height: 2.5px;
-            background: #fff; border-radius: 4px;
-            transition: all .35s cubic-bezier(.34,1.56,.64,1);
-            transform-origin: center;
-        }
-        .burger-btn.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
-        .burger-btn.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
-        .burger-btn.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-        nav.open { display: flex !important; animation: slideDown .35s cubic-bezier(.34,1.56,.64,1); }
-        @keyframes slideDown {
-            from { opacity:0; transform:translateY(-14px) scale(.97); }
-            to   { opacity:1; transform:translateY(0) scale(1); }
-        }
-        @media (max-width: 600px) {
-            .burger-btn { display: flex; }
-            nav {
-                display: none; flex-direction: column; align-items: stretch;
-                position: fixed; top: 70px; right: 12px;
-                width: calc(100% - 24px); max-width: 320px;
-                z-index: 999; border-radius: 20px; padding: 12px;
-                box-shadow: 0 10px 40px rgba(0,0,0,.18);
-            }
-            nav a { text-align: center; padding: 12px 16px; }
-        }
 
         /* CART */
         .cart-empty { text-align:center; padding:30px 16px; color:#aaa; font-size:15px; font-weight:700; }
@@ -547,48 +462,6 @@ input:focus, textarea:focus, select:focus {
 
         @keyframes rowFade { to { opacity:0; transform:translateX(30px) scale(.96); } }
         .removing { animation: rowFade .35s ease forwards; }
-         .burger-btn {
-            display: none;
-            position: fixed;
-            top: 16px; right: 16px;
-            z-index: 1000;
-            width: 48px; height: 48px;
-            background: linear-gradient(135deg, #43A047, #1B5E20);
-            border: none; border-radius: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 18px rgba(67,160,71,.45);
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            padding: 0; margin: 0;
-        }
-        .burger-btn span {
-            display: block;
-            width: 22px; height: 2.5px;
-            background: #fff; border-radius: 4px;
-            transition: all .35s cubic-bezier(.34,1.56,.64,1);
-            transform-origin: center;
-        }
-        .burger-btn.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
-        .burger-btn.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
-        .burger-btn.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-        nav.open { display: flex !important; animation: slideDown .35s cubic-bezier(.34,1.56,.64,1); }
-        @keyframes slideDown {
-            from { opacity:0; transform:translateY(-14px) scale(.97); }
-            to   { opacity:1; transform:translateY(0) scale(1); }
-        }
-        @media (max-width: 600px) {
-            .burger-btn { display: flex; }
-            nav {
-                display: none; flex-direction: column; align-items: stretch;
-                position: fixed; top: 70px; right: 12px;
-                width: calc(100% - 24px); max-width: 320px;
-                z-index: 999; border-radius: 20px; padding: 12px;
-                box-shadow: 0 10px 40px rgba(0,0,0,.18);
-            }
-            nav a { text-align: center; padding: 12px 16px; }
-        }
 
 label { font-weight: 700; color: var(--text-mid); font-size: 14px; display: block; margin-top: 4px; }
 
@@ -647,11 +520,17 @@ tr:hover td { background: var(--green-pale); }
 
 /* ===== LOGIN ===== */
 .login-wrap {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9) !important;
 }
 .login-box {
     background: white;
@@ -727,14 +606,4 @@ tr:hover td { background: var(--green-pale); }
     padding: 10px;
     font-size: 14px;
     margin-bottom: 16px;
-}
-
-/* ===== FIX LOGIN TENGAH ===== */
-body:has(.login-wrap) {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    min-height: 100vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }
