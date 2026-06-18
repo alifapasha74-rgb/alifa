@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: login.php");
+    exit();
+}
+require 'koneksi.php';
+
+$result = mysqli_query($koneksi, "SELECT * FROM produk ORDER BY id ASC");
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -22,48 +32,28 @@
         <span class="cart-badge-wrap">Pesan <span id="cartBadge"></span></span>
     </a>
     <a href="kontak.php">Kontak</a>
-     <a href="logout.php">logout</a>
+    <a href="logout.php">logout</a>
 </nav>
 
 <section>
     <h2>Daftar Produk 🛒</h2>
     <ul class="produk-grid">
-        <li>
-            <img src="coklat.jpg" alt="Susu Coklat">
-            <b>Susu Coklat</b>
-            <p>Rp 15.000</p>
-            <button onclick="pesanProduk('Susu Coklat',15000,'coklat.jpg')">🛒 Tambah ke Keranjang</button>
-        </li>
-        <li>
-            <img src="strawbery.jpg" alt="Susu Strawberry">
-            <b>Susu Strawberry</b>
-            <p>Rp 15.000</p>
-            <button onclick="pesanProduk('Susu Strawberry',15000,'strawbery.jpg')">🛒 Tambah ke Keranjang</button>
-        </li>
-        <li>
-            <img src="vanilla.jpg" alt="Susu Vanilla">
-            <b>Susu Vanilla</b>
-            <p>Rp 15.000</p>
-            <button onclick="pesanProduk('Susu Vanilla',15000,'vanilla.jpg')">🛒 Tambah ke Keranjang</button>
-        </li>
-        <li>
-            <img src="almond.jpg" alt="Susu Almond">
-            <b>Susu Almond</b>
-            <p>Rp 15.000</p>
-            <button onclick="pesanProduk('Susu Almond',15000,'almond.jpg')">🛒 Tambah ke Keranjang</button>
-        </li>
-        <li>
-            <img src="mangga.jpg" alt="Susu Mangga Topping Oreo">
-            <b>Susu Mangga Topping Oreo</b>
-            <p>Rp 20.000</p>
-            <button onclick="pesanProduk('Susu Mangga Topping Oreo',20000,'mangga.jpg')">🛒 Tambah ke Keranjang</button>
-        </li>
-        <li>
-            <img src="kurma.jpg" alt="Susu Kurma Promo">
-            <b>Susu Kurma Promo 🔥</b>
-            <p>Rp 12.000</p>
-            <button onclick="pesanProduk('Susu Kurma Promo',12000,'kurma.jpg')">🛒 Tambah ke Keranjang</button>
-        </li>
+        <?php if (mysqli_num_rows($result) === 0): ?>
+            <li style="list-style:none; text-align:center;">Belum ada produk. Admin belum menambahkan produk.</li>
+        <?php else: ?>
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <?php
+                    $namaJs   = htmlspecialchars($row['nama_produk'], ENT_QUOTES);
+                    $gambarJs = htmlspecialchars($row['gambar'], ENT_QUOTES);
+                ?>
+                <li>
+                    <img src="<?= htmlspecialchars($row['gambar']) ?>" alt="<?= htmlspecialchars($row['nama_produk']) ?>">
+                    <b><?= htmlspecialchars($row['nama_produk']) ?></b>
+                    <p>Rp <?= number_format($row['harga'], 0, ',', '.') ?></p>
+                    <button onclick="pesanProduk('<?= $namaJs ?>',<?= (int)$row['harga'] ?>,'<?= $gambarJs ?>')">🛒 Tambah ke Keranjang</button>
+                </li>
+            <?php endwhile; ?>
+        <?php endif; ?>
     </ul>
 </section>
 
@@ -84,8 +74,6 @@
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
-<script src="main.js">
-
-</script>
+<script src="main.js"></script>
 </body>
 </html>
