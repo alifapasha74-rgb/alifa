@@ -32,7 +32,7 @@ if (isset($_POST['simpan'])) {
         <input type="text" name="gambar" placeholder="contoh: coklat.jpg">
         <button type="submit" name="simpan">💾 Simpan</button>
     </form>
-    <a href="admin_produk.php">
+    <a href="adminproduk.php">
         <button style="background:grey; margin-top:10px;">← Kembali</button>
     </a>
 </div>
