@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['login'])) {
+if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit();
 }
@@ -11,8 +11,8 @@ $data = mysqli_query($koneksi, "SELECT * FROM produk");
 <div style="width:100%; max-width:960px; margin:0 auto; padding:30px;">
     <h1 style="border-radius:16px; margin-bottom:20px;">🛒 Admin Produk</h1>
     <nav id="mainNav">
-        <a href="index.php">Beranda</a>
-        <a href="adminproduk.php" class="active">Admin Produk</a>
+        <a href="adminproduk.php" class="active">📦 Produk</a>
+        <a href="admin_galeri.php">🖼️ Galeri</a>
         <a href="logout.php">🚪 Logout</a>
     </nav>
     <div style="text-align:right; margin-bottom:16px;">

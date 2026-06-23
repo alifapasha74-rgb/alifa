@@ -20,6 +20,7 @@
     <a href="produk.php">Produk</a>
     <a href="pesan.php">Pesan</a>
     <a href="kontak.php">Kontak</a>
+    <a href="galeri.php">galeri</a>
     <a href="logout.php">logout</a>
 </nav>
 
@@ -37,7 +38,7 @@
 
 <section>
     <h2>Tentang Kami 🌿</h2>
-    <p>Susu Mbok Darmi adalah usaha susu sapi segar yang berdiri sejak 2010. Kami berkomitmen menghadirkan susu berkualitas tinggi, murni, sehat, dan menyegarkan untuk seluruh keluarga Indonesia.</p>
+    <p>Susu Mbok Darmi adalah usaha susu sapi segar yang berdiri sejak 2013. Kami berkomitmen menghadirkan susu berkualitas tinggi, murni, sehat, dan menyegarkan untuk seluruh keluarga Indonesia.</p>
     <br>
     <p>📍 Tang City Mall, Tangerang, Lt.1, Blok A1</p>
     <p>⏰ Buka setiap hari: 09.00 – 19.00 WIB</p>

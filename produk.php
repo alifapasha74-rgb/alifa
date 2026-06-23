@@ -32,6 +32,7 @@ $result = mysqli_query($koneksi, "SELECT * FROM produk ORDER BY id ASC");
         <span class="cart-badge-wrap">Pesan <span id="cartBadge"></span></span>
     </a>
     <a href="kontak.php">Kontak</a>
+    <a href="galeri.php">galeri</a>
     <a href="logout.php">logout</a>
 </nav>
 

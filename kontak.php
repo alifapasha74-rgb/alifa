@@ -20,6 +20,7 @@
     <a href="produk.php">Produk</a>
     <a href="pesan.php">Pesan</a>
     <a href="kontak.php" class="active">Kontak</a>
+    <a href="galeri.php">galeri</a>
      <a href="logout.php">logout</a>
 </nav>
 
