@@ -527,6 +527,7 @@ tr:hover td { background: var(--green-pale); }
     bottom: 0 !important;
     width: 100% !important;
     height: 100% !important;
+    overflow-y: auto !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -540,7 +541,7 @@ tr:hover td { background: var(--green-pale); }
     width: 90% !important;
     max-width: 380px !important;
     text-align: center;
-    margin: 0 auto;
+    margin: 30px auto;
 }
 .login-box .emoji {
     font-size: 56px;
@@ -606,4 +607,68 @@ tr:hover td { background: var(--green-pale); }
     padding: 10px;
     font-size: 14px;
     margin-bottom: 16px;
+}
+
+/* ===== TIMELINE SEJARAH ===== */
+.timeline {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-left: 36px;
+}
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 6px;
+    bottom: 6px;
+    width: 4px;
+    background: linear-gradient(180deg, var(--green-light), var(--yellow));
+    border-radius: var(--r-pill);
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+}
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+.timeline-dot {
+    position: absolute;
+    left: -36px;
+    top: 4px;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--green), var(--green-mid));
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 14px;
+    box-shadow: var(--shadow-md);
+    border: 3px solid #fff;
+    z-index: 2;
+}
+.timeline-content {
+    background: #fff;
+    border: 2px solid var(--green-pale);
+    border-radius: var(--r-md);
+    padding: 14px;
+    box-shadow: var(--shadow-sm);
+}
+.timeline-content img {
+    width: 100%;
+    max-height: 160px;
+    object-fit: cover;
+    border-radius: var(--r-sm);
+    margin-bottom: 8px;
+    display: block;
+}
+.timeline-content p {
+    text-align: left;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin: 0;
 }
