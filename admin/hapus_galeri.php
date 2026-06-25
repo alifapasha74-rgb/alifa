@@ -1,16 +1,14 @@
 <?php
 session_start();
-require 'koneksi.php';
-
-if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+if (!isset($_SESSION['login_admin']) && !isset($_SESSION['login'])) {
+    header("Location: index.php");
     exit();
 }
+include __DIR__ . '/koneksi.php';
 
 $id = $_GET['id'] ?? '';
-
 if ($id === '' || !is_numeric($id)) {
-    header("Location: admin_galeri.php");
+    header("Location: galeri.php");
     exit();
 }
 
@@ -22,7 +20,7 @@ $found = mysqli_stmt_fetch($stmt);
 mysqli_stmt_close($stmt);
 
 if ($found) {
-    $filePath = 'uploads_galeri/' . $gambar;
+    $filePath = __DIR__ . '/uploads_galeri/' . $gambar;
     if (file_exists($filePath)) {
         unlink($filePath);
     }
@@ -32,5 +30,5 @@ if ($found) {
     mysqli_stmt_close($stmt);
 }
 
-header("Location: admin_galeri.php?msg=" . urlencode('Foto berhasil dihapus'));
+header("Location: galeri.php?msg=" . urlencode('Foto berhasil dihapus'));
 exit();

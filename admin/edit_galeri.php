@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+if (!isset($_SESSION['login_admin']) && !isset($_SESSION['login'])) {
+    header("Location: index.php");
     exit();
 }
-include 'koneksi.php';
+include __DIR__ . '/koneksi.php';
 
 $id = $_GET['id'] ?? '';
 $stmt = mysqli_prepare($koneksi, "SELECT * FROM galeri WHERE id = ?");
@@ -14,11 +14,18 @@ $result = mysqli_stmt_get_result($stmt);
 $data = mysqli_fetch_assoc($result);
 
 if (!$data) {
-    header("Location: admin_galeri.php");
+    header("Location: galeri.php");
     exit();
 }
 ?>
-<link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Foto - Susu Mbok Darmi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 <div class="login-wrap" style="background:#F1F8E9;">
 <div class="login-box" style="max-width:500px;">
     <h2>✏️ Edit Foto</h2>
@@ -43,8 +50,10 @@ if (!$data) {
 
         <button type="submit">💾 Update</button>
     </form>
-    <a href="admin_galeri.php">
+    <a href="galeri.php">
         <button style="background:grey; margin-top:10px;">← Kembali</button>
     </a>
 </div>
 </div>
+</body>
+</html>

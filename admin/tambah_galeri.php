@@ -1,11 +1,18 @@
 <?php
 session_start();
-if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+if (!isset($_SESSION['login_admin']) && !isset($_SESSION['login'])) {
+    header("Location: index.php");
     exit();
 }
 ?>
-<link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Foto Galeri - Susu Mbok Darmi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 <div class="login-wrap" style="background:#F1F8E9;">
 <div class="login-box" style="max-width:500px;">
     <h2>➕ Tambah Foto Galeri</h2>
@@ -29,8 +36,10 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
 
         <button type="submit">💾 Simpan</button>
     </form>
-    <a href="admin_galeri.php">
+    <a href="galeri.php">
         <button style="background:grey; margin-top:10px;">← Kembali</button>
     </a>
 </div>
 </div>
+</body>
+</html>

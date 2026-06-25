@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['login'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['login_admin']) && !isset($_SESSION['login'])) {
+    header("Location: index.php");
     exit();
 }
-include 'koneksi.php';
+include __DIR__ . '/koneksi.php';
 
 if (isset($_POST['simpan'])) {
     $nama      = $_POST['nama_produk'];
@@ -13,11 +13,18 @@ if (isset($_POST['simpan'])) {
     $gambar    = $_POST['gambar'];
 
     mysqli_query($koneksi, "INSERT INTO produk (nama_produk, harga, deskripsi, gambar) VALUES ('$nama', '$harga', '$deskripsi', '$gambar')");
-    header("Location: adminproduk.php");
+    header("Location: produk.php");
     exit();
 }
 ?>
-<link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Produk - Susu Mbok Darmi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 <div class="login-wrap" style="background:#F1F8E9;">
 <div class="login-box" style="max-width:500px;">
     <h2>➕ Tambah Produk</h2>
@@ -32,8 +39,10 @@ if (isset($_POST['simpan'])) {
         <input type="text" name="gambar" placeholder="contoh: coklat.jpg">
         <button type="submit" name="simpan">💾 Simpan</button>
     </form>
-    <a href="adminproduk.php">
+    <a href="produk.php">
         <button style="background:grey; margin-top:10px;">← Kembali</button>
     </a>
 </div>
 </div>
+</body>
+</html>

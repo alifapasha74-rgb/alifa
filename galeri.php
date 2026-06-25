@@ -44,7 +44,7 @@ $rasa    = mysqli_query($koneksi, "SELECT * FROM galeri WHERE kategori='rasa' OR
             <div class="timeline-item">
                 <div class="timeline-dot"><?= $i++ ?></div>
                 <div class="timeline-content">
-                    <img src="uploads_galeri/<?= htmlspecialchars($row['gambar']) ?>" alt="sejarah">
+                    <img src="admin/uploads_galeri/<?= htmlspecialchars($row['gambar']) ?>" alt="sejarah">
                     <p><?= htmlspecialchars($row['keterangan']) ?></p>
                 </div>
             </div>
@@ -61,7 +61,7 @@ $rasa    = mysqli_query($koneksi, "SELECT * FROM galeri WHERE kategori='rasa' OR
         <?php else: ?>
             <?php while ($row = mysqli_fetch_assoc($rasa)): ?>
             <div style="background:#fff; border:2px solid var(--green-pale); border-radius:20px; padding:14px; text-align:center;">
-                <img src="uploads_galeri/<?= htmlspecialchars($row['gambar']) ?>" alt="rasa susu" style="height:180px; object-fit:cover; border-radius:12px;">
+                <img src="admin/uploads_galeri/<?= htmlspecialchars($row['gambar']) ?>" alt="rasa susu" style="height:180px; object-fit:cover; border-radius:12px;">
                 <p style="margin-top:8px;"><?= htmlspecialchars($row['keterangan']) ?></p>
             </div>
             <?php endwhile; ?>

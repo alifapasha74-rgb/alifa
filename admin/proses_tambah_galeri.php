@@ -1,9 +1,9 @@
 <?php
 session_start();
-require 'koneksi.php';
+require __DIR__ . '/koneksi.php';
 
-if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+if (!isset($_SESSION['login_admin']) && !isset($_SESSION['login'])) {
+    header("Location: index.php");
     exit();
 }
 
@@ -30,7 +30,7 @@ if (!in_array($ext, $allowedExt)) {
     exit();
 }
 
-$uploadDir = 'uploads_galeri/';
+$uploadDir = __DIR__ . '/uploads_galeri/';
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
@@ -47,7 +47,7 @@ $stmt = mysqli_prepare($koneksi, "INSERT INTO galeri (gambar, keterangan, katego
 mysqli_stmt_bind_param($stmt, 'sss', $newFileName, $keterangan, $kategori);
 
 if (mysqli_stmt_execute($stmt)) {
-    header("Location: admin_galeri.php?msg=" . urlencode('Foto berhasil ditambahkan'));
+    header("Location: galeri.php?msg=" . urlencode('Foto berhasil ditambahkan'));
 } else {
     header("Location: tambah_galeri.php?error=" . urlencode('Gagal menyimpan ke database'));
 }
