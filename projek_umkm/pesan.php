@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: login.php?redirect=pesan.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -20,6 +27,7 @@
     <a href="produk.php">Produk</a>
     <a href="pesan.php" class="active">Pesan</a>
     <a href="kontak.php">Kontak</a>
+    <a href="logout.php">Logout</a>
 </nav>
 
 <section>
@@ -52,9 +60,6 @@
 </section>
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
-
-<script src="main.js">
-
-</script>
+<script src="main.js"></script>
 </body>
 </html>

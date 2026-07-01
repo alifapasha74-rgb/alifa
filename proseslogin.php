@@ -15,7 +15,6 @@ if (isset($_POST['btn_login'])) {
 
     if ($found && password_verify($password, $hashedPassword)) {
         if ($role === 'admin') {
-            // akun admin nggak boleh login lewat sini, suruh pindah ke pintu admin
             header("Location: admin/index.php?error=1");
             exit();
         }
@@ -23,13 +22,20 @@ if (isset($_POST['btn_login'])) {
         $_SESSION["login"] = true;
         $_SESSION["username"] = $username;
         $_SESSION["role"] = $role;
-        header("Location: index.php");
+
+        // redirect balik ke halaman asal, default ke index.php
+        $redirect = $_POST['redirect'] ?? 'index.php';
+        $allowed  = ['index.php', 'produk.php', 'pesan.php', 'profil.php', 'kontak.php'];
+        if (!in_array($redirect, $allowed)) {
+            $redirect = 'index.php';
+        }
+        header("Location: " . $redirect);
         exit();
+
     } else {
-        echo "<script>
-                alert('Username atau Password Salah!');
-                window.location.href='login.php';
-              </script>";
+        $redirect = $_POST['redirect'] ?? 'index.php';
+        header("Location: login.php?error=1&redirect=" . urlencode($redirect));
+        exit();
     }
 } else {
     header("Location: login.php");

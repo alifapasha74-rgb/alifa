@@ -23,6 +23,7 @@ $data = mysqli_query($koneksi, "SELECT * FROM produk");
     <h1 style="margin-bottom:20px;">🛒 Admin Produk</h1>
 
     <nav id="mainNav">
+        <a href="dashboard.php">📊 Dashboard</a>
         <a href="produk.php" class="active">📦 Produk</a>
         <a href="galeri.php">🖼️ Galeri</a>
         <a href="logout.php">🚪 Logout</a>

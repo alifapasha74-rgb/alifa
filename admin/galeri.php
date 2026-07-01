@@ -18,6 +18,7 @@ $data = mysqli_query($koneksi, "SELECT * FROM galeri ORDER BY id ASC");
 <div style="width:100%; max-width:960px; margin:0 auto; padding:30px;">
     <h1 style="margin-bottom:20px;">🖼️ Admin Galeri</h1>
     <nav id="mainNav">
+        <a href="dashboard.php">📊 Dashboard</a>
         <a href="produk.php">📦 Produk</a>
         <a href="galeri.php" class="active">🖼️ Galeri</a>
         <a href="logout.php">🚪 Logout</a>

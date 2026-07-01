@@ -1,10 +1,4 @@
-<?php
-session_start();
-   if(!isset($_SESSION['login'])){
-    header("Location: login.php");
-    exit();
-}
-?>
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 <html lang="id">
@@ -13,7 +7,6 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Susu Mbok Darmi 2 — Beranda</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
@@ -46,8 +39,11 @@ session_start();
     <a href="produk.php">Produk</a>
     <a href="pesan.php">Pesan</a>
     <a href="kontak.php">Kontak</a>
-    <a href="galeri.php">galeri</a>
-    <a href="logout.php">logout</a>
+    <?php if (isset($_SESSION['login'])): ?>
+        <a href="logout.php">Logout</a>
+    <?php else: ?>
+        <a href="login.php">Login</a>
+    <?php endif; ?>
 </nav>
 
 <section>
@@ -78,8 +74,6 @@ session_start();
 
 <p class="center little-text">&copy; 2026 Susu Mbok Darmi</p>
 
-<script src="main.js">
-
-</script>
+<script src="main.js"></script>
 </body>
 </html>

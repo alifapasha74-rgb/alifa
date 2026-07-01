@@ -131,24 +131,43 @@ function clearAll() {
     if (confirm("Hapus semua pesanan?")) { cart = []; saveCart(cart); renderCart(); }
 }
 
-function submitOrder() {
+// Simpan ke database lalu buka WhatsApp
+async function submitOrder() {
     const nama   = document.getElementById("nama").value.trim();
     const alamat = document.getElementById("alamat").value.trim();
     const hp     = document.getElementById("hp").value.trim();
     const bayar  = document.getElementById("bayar").value;
     if (!nama || !alamat || !hp) { alert("Mohon lengkapi nama, alamat, dan nomor HP dulu ya! 😊"); return; }
     if (cart.length === 0) { alert("Keranjang masih kosong, pilih produk dulu! 🛒"); return; }
-    let detail = cart.map(i => `${i.qty}x ${i.nama} = Rp ${(i.harga*i.qty).toLocaleString('id-ID')}`).join('%0A');
+
     const total = cart.reduce((s,i) => s + i.harga*i.qty, 0);
-    detail += `%0A%0A💰 *Total: Rp ${total.toLocaleString('id-ID')}*`;
+    const detail = cart.map(i => `${i.qty}x ${i.nama} = Rp ${(i.harga*i.qty).toLocaleString('id-ID')}`).join('\n');
+
+    const formData = new FormData();
+    formData.append('nama', nama);
+    formData.append('alamat', alamat);
+    formData.append('hp', hp);
+    formData.append('bayar', bayar);
+    formData.append('total', total);
+    formData.append('detail', detail);
+    formData.append('items', JSON.stringify(cart)); // kirim detail produk
+    try {
+        await fetch('simpan_pesanan.php', { method: 'POST', body: formData });
+    } catch(e) {
+        console.log('Gagal simpan:', e);
+    }
+
+    let detailWA = cart.map(i => `${i.qty}x ${i.nama} = Rp ${(i.harga*i.qty).toLocaleString('id-ID')}`).join('%0A');
+    detailWA += `%0A%0A💰 *Total: Rp ${total.toLocaleString('id-ID')}*`;
     const msg =
         "Halo! Saya ingin memesan susu sapi segar 🥛%0A%0A" +
-        "📝 *Detail Pesanan:*%0A" + detail + "%0A%0A" +
+        "📝 *Detail Pesanan:*%0A" + detailWA + "%0A%0A" +
         "👤 *Nama:* " + encodeURIComponent(nama) + "%0A" +
         "📍 *Alamat:* " + encodeURIComponent(alamat) + "%0A" +
         "📱 *HP:* " + encodeURIComponent(hp) + "%0A" +
         "💳 *Pembayaran:* " + encodeURIComponent(bayar);
     window.open("https://wa.me/6281282481503?text=" + msg, "_blank");
+
     cart = []; saveCart(cart); renderCart();
 }
 
