@@ -34,20 +34,20 @@ if (!isset($_SESSION['login'])) {
     <h2>🛒 Keranjang Pesanan</h2>
     <div id="cartContainer"></div>
     <div style="text-align:right;">
-        <button class="clear-btn" onclick="clearAll()">🗑️ Hapus Semua</button>
+        <button class="clear-btn" onclick="clearAll()" style="font-size:12px; padding:6px 14px; width:auto; background:#888;">🗑️ Hapus Semua</button>
     </div>
 </section>
 
 <section>
     <h2>Form Order 📋</h2>
     <label>👤 Nama Lengkap</label>
-    <input type="text" id="nama" placeholder="Contoh: Budi Santoso">
+    <input type="text" id="nama" placeholder="">
 
     <label>📍 Alamat Pengiriman</label>
-    <textarea id="alamat" rows="3" placeholder="Tuliskan alamat lengkap kamu..."></textarea>
+    <textarea id="alamat" rows="3"></textarea>
 
     <label>📱 Nomor HP / WhatsApp</label>
-    <input type="text" id="hp" placeholder="Contoh: 08123456789">
+    <input type="text" id="hp" placeholder="">
 
     <label>💳 Metode Pembayaran</label>
     <select id="bayar">
