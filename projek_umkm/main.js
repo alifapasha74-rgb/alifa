@@ -34,18 +34,7 @@ function updateBadge() {
     }
 }
 
-// ==== FUNGSI TAMBAH KE KERANJANG (SUDAH DICEK LOGIN) ====
 function pesanProduk(nama, harga, img) {
-    // Kalau variabel isLoggedIn ada dan bernilai false, tahan di sini
-    if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
-        if (typeof tampilkanPopupLogin === 'function') {
-            tampilkanPopupLogin();
-        } else {
-            window.location.href = "login.php?redirect=produk.php";
-        }
-        return; // STOP, jangan lanjut masukin ke cart
-    }
-
     const cart = getCart();
     const existing = cart.find(i => i.nama === nama);
     if (existing) existing.qty += 1;
@@ -161,7 +150,7 @@ async function submitOrder() {
     formData.append('bayar', bayar);
     formData.append('total', total);
     formData.append('detail', detail);
-    formData.append('items', JSON.stringify(cart));
+    formData.append('items', JSON.stringify(cart)); // kirim detail produk
     try {
         await fetch('simpan_pesanan.php', { method: 'POST', body: formData });
     } catch(e) {

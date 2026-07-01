@@ -24,7 +24,7 @@ $result = mysqli_query($koneksi, "SELECT * FROM produk ORDER BY id ASC");
     <a href="profil.php">Profil</a>
     <a href="produk.php" class="active">Produk</a>
     <a href="pesan.php">
-        <span class="cart-badge-wrap">keranjang <span id="cartBadge"></span></span>
+        <span class="cart-badge-wrap">Pesan <span id="cartBadge"></span></span>
     </a>
     <a href="kontak.php">Kontak</a>
     <?php if (isset($_SESSION['login'])): ?>
