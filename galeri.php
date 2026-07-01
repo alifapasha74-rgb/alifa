@@ -44,7 +44,7 @@ $rasa    = mysqli_query($koneksi, "SELECT * FROM galeri WHERE kategori='rasa' OR
             <div class="timeline-item">
                 <div class="timeline-dot"><?= $i++ ?></div>
                 <div class="timeline-content">
-                    <img src="admin/uploads_galeri/<?= htmlspecialchars($row['gambar']) ?>" alt="sejarah">
+                    <img src="admin/uploads_galeri/<?= htmlspecialchars($row['gambar']) ?>" alt="sejarah" style="width:100%; max-width:400px; height:250px; object-fit:cover; border-radius:12px; display:block; margin:0 auto;">
                     <p><?= htmlspecialchars($row['keterangan']) ?></p>
                 </div>
             </div>
